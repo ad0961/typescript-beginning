@@ -1,15 +1,24 @@
 import { Payment } from "./classes/Payment.js";
 import { Invoice } from "./classes/Invoice.js";
 import { HasFormatter } from "./interfaces/HasFormatter.js";
+import { ListTemplate } from "./classes/ListTemplate.js";
 
-let doc1 : HasFormatter;
-let doc2 : HasFormatter;
+const form = document.querySelector('.new-item-form') as HTMLFormElement;
 
-doc1 = new Payment("Mario", 300, "Website work")
-doc2 = new Invoice("Luigi", 200, "plumbing work")
+const type = document.querySelector('#type') as HTMLSelectElement
+const from = document.querySelector('#tofrom') as HTMLInputElement
+const details = document.querySelector('#details') as HTMLInputElement
+const amount = document.querySelector('#amount') as HTMLInputElement
+const ul = document.querySelector('ul')!;
+const listItem = new ListTemplate(ul);
 
-let docs : HasFormatter[] = []
-docs.push(doc1);
-docs.push(doc2);
-
-console.log(docs);
+form.addEventListener('submit', (e : Event) => {
+    e.preventDefault()
+    let doc : HasFormatter;
+    if(type.value === "invoice"){
+        doc = new Invoice(from.value, amount.valueAsNumber, details.value)
+    }else{
+        doc = new Payment(from.value, amount.valueAsNumber, details.value)
+    }
+    listItem.render(doc, type.value, "end")
+})
