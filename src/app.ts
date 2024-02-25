@@ -1,24 +1,23 @@
-import { Payment } from "./classes/Payment.js";
-import { Invoice } from "./classes/Invoice.js";
-import { HasFormatter } from "./interfaces/HasFormatter.js";
-import { ListTemplate } from "./classes/ListTemplate.js";
+//enums are used to specify detailed constants and then mapping them to subsequent numeric values
 
-const form = document.querySelector('.new-item-form') as HTMLFormElement;
+enum resourcetype {
+    BOOKS,
+    PERSON,
+    VIDEO
+}
 
-const type = document.querySelector('#type') as HTMLSelectElement
-const from = document.querySelector('#tofrom') as HTMLInputElement
-const details = document.querySelector('#details') as HTMLInputElement
-const amount = document.querySelector('#amount') as HTMLInputElement
-const ul = document.querySelector('ul')!;
-const listItem = new ListTemplate(ul);
+const obj = {
+    name:"Ad",
+    resourcetype : resourcetype.BOOKS
+}
 
-form.addEventListener('submit', (e : Event) => {
-    e.preventDefault()
-    let doc : HasFormatter;
-    if(type.value === "invoice"){
-        doc = new Invoice(from.value, amount.valueAsNumber, details.value)
-    }else{
-        doc = new Payment(from.value, amount.valueAsNumber, details.value)
-    }
-    listItem.render(doc, type.value, "end")
-})
+console.log(obj)
+
+//tuples : tuples are same as array the only difference is for each posiiton in array a datatype is defined.
+
+let arr = ["name", 20, "IT department"]
+arr[0] = 50
+
+let tup : [string, number, string] = ["name", 20, "IT department"]
+//tup[0] = 20
+tup[0] = 'Adi'
